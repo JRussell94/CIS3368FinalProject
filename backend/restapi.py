@@ -1,3 +1,5 @@
+# All code is created from course homework, in-class code, and ChatGPT to troubleshoot
+
 # 127.0.0.1:5000/api/login
 # 127.0.0.1:5000/api/facility
 # 127.0.0.1:5000/api/classroom
