@@ -14,21 +14,21 @@ conn = create_connection(myCreds.conString, myCreds.userName, myCreds.password, 
 def can_add_child_to_classroom(classroom_id):
     try:
         # Count the number of teachers in the classroom
-        teacher_count_sql = "SELECT COUNT(*) as count FROM teacher WHERE room = %s"
-        teacher_count_result = execute_read_query(conn, teacher_count_sql, (classroom_id,))
+        teacher_count_sql = "SELECT COUNT(*) as count FROM teacher WHERE room = %s" % (classroom_id)
+        teacher_count_result = execute_read_query(conn, teacher_count_sql)
         teacher_count = teacher_count_result[0]['count']
 
         # Calculate max children allowed based on teacher count
         max_children_allowed = 10 * teacher_count
 
         # Count the current number of children in the classroom
-        child_count_sql = "SELECT COUNT(*) as count FROM child WHERE room = %s"
-        child_count_result = execute_read_query(conn, child_count_sql, (classroom_id,))
+        child_count_sql = "SELECT COUNT(*) as count FROM child WHERE room = %s" % (classroom_id)
+        child_count_result = execute_read_query(conn, child_count_sql)
         current_child_count = child_count_result[0]['count']
 
         # Check classroom capacity
-        capacity_sql = "SELECT capacity FROM classroom WHERE id = %s"
-        capacity_result = execute_read_query(conn, capacity_sql, (classroom_id,))
+        capacity_sql = "SELECT capacity FROM classroom WHERE id = %s" % (classroom_id)
+        capacity_result = execute_read_query(conn, capacity_sql)
         classroom_capacity = capacity_result[0]['capacity']
 
         # Ensure adding another child does not exceed max_children_allowed or classroom_capacity
