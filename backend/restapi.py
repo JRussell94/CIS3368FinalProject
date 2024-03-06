@@ -28,7 +28,6 @@ def login():
         return jsonify({"message": "Login failed"})
 
 
-
 # Facility CRUD Operations
 @app.route('/api/facility', methods=['GET'])
 def view_all_facilities():
@@ -59,7 +58,7 @@ def update_facility(id):
         data = request.json
         if 'name' not in data:
             raise ValueError("Missing 'name' in request")
-        sql = "UPDATE facility SET name = %s WHERE id = %s" % (data['name'], id)
+        sql = "UPDATE facility SET name = '%s' WHERE id = %s" % (data['name'], id)
         execute_query(conn, sql)
         return jsonify({"message": "Facility updated successfully"})
     except ValueError as ve:
@@ -75,11 +74,6 @@ def delete_facility(id):
         return jsonify({"message": "Facility deleted successfully"})
     except Error as e:
         return functions.handle_database_error(e)
-
-
-
-
-
 
 
 # Classroom CRUD Operations
@@ -98,7 +92,7 @@ def add_classroom():
         data = request.json
         if 'name' not in data or 'capacity' not in data or 'facility' not in data:
             raise ValueError("Missing data in request")
-        sql = "INSERT INTO classroom (name, capacity, facility) VALUES ('%s', '%s', '%s')" % (data['name'], data['capacity'], data['facility'])
+        sql = "INSERT INTO classroom (name, capacity, facility) VALUES ('%s', %s, %s)" % (data['name'], data['capacity'], data['facility'])
         execute_query(conn, sql)
         return jsonify({"message": "Classroom added successfully"})
     except ValueError as ve:
@@ -112,7 +106,7 @@ def update_classroom(id):
         data = request.json
         if 'name' not in data or 'capacity' not in data or 'facility' not in data:
             raise ValueError("Missing data in request")
-        sql = "UPDATE classroom SET name = %s, capacity = %s, facility = %s WHERE id = %s" % (data['name'], data['capacity'], data['facility'], id)
+        sql = "UPDATE classroom SET name = '%s', capacity = %s, facility = %s WHERE id = %s" % (data['name'], data['capacity'], data['facility'], id)
         execute_query(conn, sql)
         return jsonify({"message": "Classroom updated successfully"})
     except ValueError as ve:
@@ -128,10 +122,6 @@ def delete_classroom(id):
         return jsonify({"message": "Classroom deleted successfully"})
     except Error as e:
         return functions.handle_database_error(e)
-
-
-
-
 
 
 # Teacher CRUD Operations
@@ -150,7 +140,7 @@ def add_teacher():
         data = request.json
         if 'firstname' not in data or 'lastname' not in data or 'room' not in data:
             raise ValueError("Missing data in request")
-        sql = "INSERT INTO teacher (firstname, lastname, room) VALUES ('%s', '%s', '%s')" % (data['firstname'], data['lastname'], data['room'])
+        sql = "INSERT INTO teacher (firstname, lastname, room) VALUES ('%s', '%s', %s)" % (data['firstname'], data['lastname'], data['room'])
         execute_query(conn, sql)
         return jsonify({"message": "Teacher added successfully"})
     except ValueError as ve:
@@ -164,7 +154,7 @@ def update_teacher(id):
         data = request.json
         if 'firstname' not in data or 'lastname' not in data or 'room' not in data:
             raise ValueError("Missing data in request")
-        sql = "UPDATE teacher SET firstname = %s, lastname = %s, room = %s WHERE id = %s" % (data['firstname'], data['lastname'], data['room'], id)
+        sql = "UPDATE teacher SET firstname = '%s', lastname = '%s', room = %s WHERE id = %s" % (data['firstname'], data['lastname'], data['room'], id)
         execute_query(conn, sql)
         return jsonify({"message": "Teacher updated successfully"})
     except ValueError as ve:
@@ -180,10 +170,6 @@ def delete_teacher(id):
         return jsonify({"message": "Teacher deleted successfully"})
     except Error as e:
         return functions.handle_database_error(e)
-
-
-
-
 
 
 # Child CRUD Operations
@@ -207,7 +193,7 @@ def add_child():
         if not functions.can_add_child_to_classroom(data['room']):
             raise ValueError("Cannot add more children to this classroom based on teacher-to-child ratio or capacity")
 
-        sql = "INSERT INTO child (firstname, lastname, age, room) VALUES ('%s', '%s', '%s', '%s')" % (data['firstname'], data['lastname'], data['age'], data['room'])
+        sql = "INSERT INTO child (firstname, lastname, age, room) VALUES ('%s', '%s', %s, %s)" % (data['firstname'], data['lastname'], data['age'], data['room'])
         execute_query(conn, sql)
         return jsonify({"message": "Child added successfully"})
     except ValueError as ve:
@@ -219,10 +205,9 @@ def add_child():
 def update_child(id):
     try:
         data = request.json
-        required_fields = ['firstname', 'lastname', 'age', 'room']
-        if not all(field in data for field in required_fields):
+        if 'firstname' not in data or 'lastname' not in data or 'age' not in data or 'room' not in data:
             raise ValueError("Missing data in request")
-
+        
         # Fetch the current room assignment for the child to check if it's being changed.
         current_room_sql = "SELECT room FROM child WHERE id = %s" % (id)
         current_room_result = execute_read_query(conn, current_room_sql)
@@ -236,7 +221,7 @@ def update_child(id):
         if new_room_id != current_room_id and not functions.can_add_child_to_classroom(new_room_id):
             raise ValueError("Cannot move child to the specified classroom based on teacher-to-child ratio or capacity")
 
-        sql = "UPDATE child SET firstname = %s, lastname = %s, age = %s, room = %s WHERE id = %s" % (data['firstname'], data['lastname'], data['age'], data['room'], id)
+        sql = "UPDATE child SET firstname = '%s', lastname = '%s', age = %s, room = %s WHERE id = %s" % (data['firstname'], data['lastname'], data['age'], data['room'], id)
         execute_query(conn, sql)
         return jsonify({"message": "Child updated successfully"})
     except ValueError as ve:
