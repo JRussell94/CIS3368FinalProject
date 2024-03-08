@@ -20,7 +20,7 @@ Jorge’s Work:
 Working Together:
 
 •	We both used Postman to troubleshoot all the APIs, to ensure that every part of the program functioned as expected. 
-        This included verifying that the APIs correctly handled tasks such as adding new teachers or children and 	retrieving classroom information.
+        This included verifying that the APIs correctly handled tasks such as adding new teachers or children and retrieving classroom information.
 •	When we found parts of the program that didn’t work right, we fixed them together. 
         We made sure the database and the Python program had all the right information and worked well.
 •	Both of us made multiple commits, pushing, and pulling our work to collaborate more effectively.
