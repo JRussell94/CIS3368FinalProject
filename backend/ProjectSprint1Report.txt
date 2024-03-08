@@ -6,7 +6,7 @@ Sprint 1 focuses on developing a backend for an application to help plan and man
 John’s Work:
 
 •	Started the project by setting up the initial parts of the database. 
-    Decided what information the database needed to keep track of, and the details about the daycare center’s classrooms, teachers, facilities, and kids.
+        Decided what information the database needed to keep track of, and the details about the daycare center’s classrooms, teachers, facilities, and kids.
 •	Wrote the first pieces of the Python program, which included creating the initial structure for the application and connecting it to the database.
 •	Created the Login API which provides simple authentication for users. Identified and fixed errors with the SQL queries and APIs in the Python program.
 
@@ -14,15 +14,15 @@ Jorge’s Work:
 
 •	Added CRUD operations to the Python program so it could add, change, and remove information about the daycare center’s classrooms, teachers, facilities, and kids.
 •	Made sure the program could handle mistakes without crashing by adding error-handling functionality. 
-    For example, if something went wrong, the program would still work properly and give useful messages about the issue.
+        For example, if something went wrong, the program would still work properly and give useful messages about the issue.
 •	Worked on the functions.py document that included logic for constraints and error-handling functions.
 
 Working Together:
 
 •	We both used Postman to troubleshoot all the APIs, to ensure that every part of the program functioned as expected. 
-    This included verifying that the APIs correctly handled tasks such as adding new teachers or children and 	retrieving classroom information.
+        This included verifying that the APIs correctly handled tasks such as adding new teachers or children and 	retrieving classroom information.
 •	When we found parts of the program that didn’t work right, we fixed them together. 
-    We made sure the database and the Python program had all the right information and worked well.
+        We made sure the database and the Python program had all the right information and worked well.
 •	Both of us made multiple commits, pushing, and pulling our work to collaborate more effectively.
 •	We made sure that all requirements in sprint 1 were covered, finalized, and worked properly. 
-    We double-checked the database and the Python program to make sure all tests passed in Postman before finalizing the submission.
+        We double-checked the database and the Python program to make sure all tests passed in Postman before finalizing the submission.
